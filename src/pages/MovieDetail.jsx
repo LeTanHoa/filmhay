@@ -4,6 +4,7 @@ import axios from "axios";
 import MovieCard from "../components/MovieCard";
 import { API_ENDPOINTS } from "../config/api";
 import VideoPlayer from "../components/VideoPlayer";
+import { Helmet } from "react-helmet-async";
 
 const MovieDetail = () => {
   const { slug } = useParams();
@@ -79,98 +80,108 @@ const MovieDetail = () => {
   if (!movie) return <p className="text-white p-5">Movie not found</p>;
 
   return (
-    <div className="max-w-6xl mx-auto py-8 text-white">
-      <h1 className="text-2xl font-bold mb-6">{movie.name}</h1>
+    <>
+      <Helmet>
+        <title>{movie.name} - Xem phim HD</title>
+        <meta name="description" content={movie.content.slice(0, 150)} />
+        <meta property="og:title" content={movie.name} />
+        <meta property="og:image" content={movie.thumb_url} />
+        <meta property="og:description" content={movie.content.slice(0, 150)} />
+        <meta property="og:type" content="video.movie" />
+      </Helmet>
+      <div className="max-w-6xl mx-auto py-8 text-white">
+        <h1 className="text-2xl font-bold mb-6">{movie.name}</h1>
 
-      {/* Video Player */}
-      {selectedServer && (
-        <div className="mb-4">
-          <VideoPlayer link={selectedServer?.link} />
-        </div>
-      )}
-
-      {/* Info */}
-      <div className="flex flex-col md:flex-row gap-5">
-        <img
-          src={movie.thumb_url}
-          alt={movie.name}
-          className="w-full h-full md:h-[300px] object-cover rounded-lg shadow-lg"
-        />
-        <div className="flex flex-col gap-4">
-          <p>
-            <strong>Thời lượng:</strong> {movie.time}
-          </p>
-          <p>
-            <strong>Chất lượng:</strong> {movie.quality}
-          </p>
-          <p>
-            <strong>Quốc gia:</strong> {movie.country?.name}
-          </p>
-          <p>
-            <strong>Trạng thái:</strong> {movie.status}
-          </p>
-
-          <div>
-            <p className="font-semibold mb-2">Thể loại:</p>
-            <div className="flex flex-wrap gap-2">
-              {movie.categories?.map((category) => (
-                <span
-                  key={category.id}
-                  className="bg-gray-700 text-white px-3 py-1 rounded-full text-sm"
-                >
-                  {category.name}
-                </span>
-              ))}
-            </div>
+        {/* Video Player */}
+        {selectedServer && (
+          <div className="mb-4">
+            <VideoPlayer link={selectedServer?.link} />
           </div>
+        )}
 
-          <div className="bg-gray-700 p-4 rounded-lg">
-            <p className="text-justify">{movie.content}</p>
-          </div>
+        {/* Info */}
+        <div className="flex flex-col md:flex-row gap-5">
+          <img
+            src={movie.thumb_url}
+            alt={movie.name}
+            className="w-full h-full md:h-[300px] object-cover rounded-lg shadow-lg"
+          />
+          <div className="flex flex-col gap-4">
+            <p>
+              <strong>Thời lượng:</strong> {movie.time}
+            </p>
+            <p>
+              <strong>Chất lượng:</strong> {movie.quality}
+            </p>
+            <p>
+              <strong>Quốc gia:</strong> {movie.country?.name}
+            </p>
+            <p>
+              <strong>Trạng thái:</strong> {movie.status}
+            </p>
 
-          {/* Danh sách tập */}
-          {movie.episodes && movie.episodes.length > 0 && (
             <div>
-              <h2 className="text-xl font-semibold mb-3">Danh sách tập:</h2>
-              {movie.episodes.map((episode, index) => (
-                <div key={index} className="mb-4">
-                  <h3 className="text-lg font-medium mb-2">
-                    {episode.server_name}
-                  </h3>
-                  <div className="flex flex-wrap gap-2">
-                    {episode.server_data.map((server, serverIndex) => (
-                      <button
-                        key={serverIndex}
-                        onClick={() => setSelectedServer(server)}
-                        className={`px-4 py-2 rounded-md ${
-                          selectedServer?.name === server.name
-                            ? "bg-blue-600 text-white"
-                            : "bg-gray-600 text-gray-200"
-                        } hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500`}
-                      >
-                        {server.name}
-                      </button>
-                    ))}
-                  </div>
-                </div>
-              ))}
+              <p className="font-semibold mb-2">Thể loại:</p>
+              <div className="flex flex-wrap gap-2">
+                {movie.categories?.map((category) => (
+                  <span
+                    key={category.id}
+                    className="bg-gray-700 text-white px-3 py-1 rounded-full text-sm"
+                  >
+                    {category.name}
+                  </span>
+                ))}
+              </div>
             </div>
-          )}
-        </div>
-      </div>
 
-      {/* Phim tương tự */}
-      {movies.length > 0 && (
-        <div className="mt-10">
-          <h2 className="text-xl font-bold mb-4">Phim Tương Tự</h2>
-          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-            {movies.map((item) => (
-              <MovieCard key={item.slug} movie={item} />
-            ))}
+            <div className="bg-gray-700 p-4 rounded-lg">
+              <p className="text-justify">{movie.content}</p>
+            </div>
+
+            {/* Danh sách tập */}
+            {movie.episodes && movie.episodes.length > 0 && (
+              <div>
+                <h2 className="text-xl font-semibold mb-3">Danh sách tập:</h2>
+                {movie.episodes.map((episode, index) => (
+                  <div key={index} className="mb-4">
+                    <h3 className="text-lg font-medium mb-2">
+                      {episode.server_name}
+                    </h3>
+                    <div className="flex flex-wrap gap-2">
+                      {episode.server_data.map((server, serverIndex) => (
+                        <button
+                          key={serverIndex}
+                          onClick={() => setSelectedServer(server)}
+                          className={`px-4 py-2 rounded-md ${
+                            selectedServer?.name === server.name
+                              ? "bg-blue-600 text-white"
+                              : "bg-gray-600 text-gray-200"
+                          } hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500`}
+                        >
+                          {server.name}
+                        </button>
+                      ))}
+                    </div>
+                  </div>
+                ))}
+              </div>
+            )}
           </div>
         </div>
-      )}
-    </div>
+
+        {/* Phim tương tự */}
+        {movies.length > 0 && (
+          <div className="mt-10">
+            <h2 className="text-xl font-bold mb-4">Phim Tương Tự</h2>
+            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+              {movies.map((item) => (
+                <MovieCard key={item.slug} movie={item} />
+              ))}
+            </div>
+          </div>
+        )}
+      </div>
+    </>
   );
 };
 
