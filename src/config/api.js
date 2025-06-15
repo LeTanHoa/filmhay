@@ -1,4 +1,4 @@
-const BASE_URL = process.env.REACT_APP_API_BASE_URL || "https://xxvnapi.com/api";
+const BASE_URL = "https://xxvnapi.com/api";
 
 export const API_ENDPOINTS = {
   MOVIE_DETAIL: (slug) => `${BASE_URL}/phim/${slug}`,
