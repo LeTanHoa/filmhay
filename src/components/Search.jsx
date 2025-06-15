@@ -19,7 +19,10 @@ const Search = ({ className = "" }) => {
   };
 
   return (
-    <form onSubmit={handleSearch}  className={`flex  gap-2 ${className}`}>
+    <form
+      onSubmit={handleSearch}
+      className={`flex gap-2 ${className}`}
+    >
       <div className="flex-1 flex gap-2">
         <select
           value={searchType}

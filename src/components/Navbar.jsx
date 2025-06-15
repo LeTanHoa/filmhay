@@ -33,7 +33,7 @@ const Navbar = () => {
           CWB
         </Link>
 
-        <div className="flex items-center space-x-4">
+        <div className="flex items-center ">
           <Search className="w-[400px]" />
 
           <div className="relative">
