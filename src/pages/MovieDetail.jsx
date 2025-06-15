@@ -84,7 +84,7 @@ const MovieDetail = () => {
   if (loading)
     return (
       <Spin
-        className="mt-20 flex justify-center"
+        className="py-10"
         spinning={loading}
         tip="Đang tải phim..."
         size="large"
@@ -102,7 +102,7 @@ const MovieDetail = () => {
         <meta property="og:description" content={movie.content.slice(0, 150)} />
         <meta property="og:type" content="video.movie" />
       </Helmet>
-      <div className="max-w-6xl mx-auto py-8 text-white">
+      <div className=" text-white">
         <h1 className="text-2xl font-bold mb-6">{movie.name}</h1>
 
         {/* Video Player */}

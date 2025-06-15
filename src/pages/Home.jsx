@@ -36,7 +36,7 @@ const Home = () => {
   }, [page]);
 
   return (
-    <div className="flex flex-col gap-3 text-white">
+    <div className="flex min-h-28 flex-col gap-3 text-white">
       <span
         className="text-white"
         style={{ fontSize: "24px", fontWeight: "bold" }}
@@ -44,12 +44,7 @@ const Home = () => {
         Phim Mới Cập Nhật
       </span>
 
-      <Spin
-        className="mt-52"
-        spinning={loading}
-        tip="Đang tải phim..."
-        size="large"
-      >
+      <Spin spinning={loading} className="py-10 " tip="Đang tải phim..." size="large">
         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
           {movies.map((movie) => (
             <div key={movie.id}>

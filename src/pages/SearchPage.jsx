@@ -37,13 +37,13 @@ const SearchPage = () => {
   }, [searchQuery]);
 
   return (
-    <div className="container mx-auto py-8 text-white">
+    <div className="flex min-h-28 flex-col gap-3 text-white">
       <span className="text-xl block font-bold mb-6">
         Kết quả tìm kiếm cho: "{searchQuery}"
       </span>
       {loading ? (
         <Spin
-          className="mt-20 flex justify-center"
+          className=" py-10"
           spinning={loading}
           tip="Đang tải phim..."
           size="large"

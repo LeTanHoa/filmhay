@@ -62,14 +62,14 @@ const CategoryPage = () => {
   }, [page]);
 
   return (
-    <div className="container mx-auto py-8">
+    <div className="flex min-h-28 flex-col gap-3 text-white">
       <span className="text-xl block font-bold text-white mb-6">
         Thể loại: {nameCategory ? nameCategory.name : ""}
       </span>
 
       <Spin
         spinning={loading}
-        className="mt-20"
+        className="py-10 "
         tip="Đang tải phim..."
         size="large"
       >

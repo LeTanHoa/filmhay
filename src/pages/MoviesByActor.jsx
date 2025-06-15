@@ -40,10 +40,10 @@ const MoviesByActor = () => {
   }, [actorName, page]);
 
   return (
-    <div className="container mx-auto py-8 ">
+    <div className="">
       {loading ? (
         <Spin
-          className="mt-32 flex justify-center items-center"
+          className=" flex justify-center items-center"
           spinning={loading}
           tip="Đang tải phim..."
           size="large"
