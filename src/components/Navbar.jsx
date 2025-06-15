@@ -29,7 +29,7 @@ const Navbar = () => {
   return (
     <nav className="bg-black p-4 fixed w-full z-10 top-0">
       <div className="max-w-6xl mx-auto flex flex-col md:flex-row  gap-5 justify-between items-center">
-        <Link to="/" className="text-white text-3xl font-bold">
+        <Link to="/" className="text-white text-5xl md:text-3xl font-bold">
           CWB
         </Link>
 

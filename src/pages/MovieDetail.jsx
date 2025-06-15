@@ -15,7 +15,6 @@ const MovieDetail = () => {
   const [selectedServer, setSelectedServer] = useState(null);
   const [loading, setLoading] = useState(true);
   const [movies, setMovies] = useState([]); // chứa phim tương tự
-
   // Fetch chi tiết phim
   useEffect(() => {
     const fetchMovieDetail = async () => {
@@ -181,6 +180,7 @@ const MovieDetail = () => {
                   <span
                     key={category.id}
                     className="bg-gray-700 text-white px-3 py-1 rounded-full text-sm"
+                    onClick={() => navigate(`/category/${category.slug}`)}
                   >
                     {category.name}
                   </span>

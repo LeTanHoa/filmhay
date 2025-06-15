@@ -57,16 +57,25 @@ const CategoryPage = () => {
     setPageSize(size);
   };
 
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [page]);
+
   return (
     <div className="container mx-auto py-8">
       <span className="text-xl block font-bold text-white mb-6">
         Thể loại: {nameCategory ? nameCategory.name : ""}
       </span>
 
-      <Spin spinning={loading} className="mt-20" tip="Đang tải phim..." size="large">
+      <Spin
+        spinning={loading}
+        className="mt-20"
+        tip="Đang tải phim..."
+        size="large"
+      >
         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
           {movies.map((movie) => (
-            <div key={movie._id}>
+            <div key={movie.id}>
               <MovieCard movie={movie} />
             </div>
           ))}
