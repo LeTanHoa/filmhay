@@ -33,6 +33,14 @@ const Categories = () => {
           Thể loại
         </span>
         <div className="flex flex-wrap gap-3">
+          <button
+            onClick={() => {
+              navigate(`/`);
+            }}
+            className="text-white cursor-pointer hover:text-blue-500 transition duration-300 ease-in-out"
+          >
+            Tất cả
+          </button>
           {dataCategories.map((category) => (
             <button
               key={category.slug}

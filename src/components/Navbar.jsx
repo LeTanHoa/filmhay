@@ -1,13 +1,12 @@
 import React, { useState, useEffect } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import axios from "axios";
 import { API_ENDPOINTS } from "../config/api";
+import Search from "./Search";
 
 const Navbar = () => {
   const [categories, setCategories] = useState([]);
   const [showCategoriesMenu, setShowCategoriesMenu] = useState(false);
-  const [searchQuery, setSearchQuery] = useState("");
-  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchCategories = async () => {
@@ -27,38 +26,15 @@ const Navbar = () => {
     fetchCategories();
   }, []);
 
-  const handleSearchChange = (event) => {
-    setSearchQuery(event.target.value);
-  };
-
-  const handleSearchSubmit = (event) => {
-    if (event.key === "Enter" && searchQuery.trim() !== "") {
-      navigate(`/search?q=${searchQuery.trim()}`);
-      setSearchQuery(""); // Clear search query after submission
-    }
-  };
-
   return (
-    <nav className="bg-black p-4  fixed w-full z-10 top-0">
-      <div className="max-w-6xl mx-auto flex justify-between items-center">
+    <nav className="bg-black p-4 fixed w-full z-10 top-0">
+      <div className="max-w-6xl mx-auto flex flex-col md:flex-row  gap-5 justify-between items-center">
         <Link to="/" className="text-white text-3xl font-bold">
           CWB
         </Link>
 
         <div className="flex items-center space-x-4">
-          <div className="relative">
-            <input
-              type="text"
-              placeholder="Tìm kiếm phim..."
-              value={searchQuery}
-              onChange={handleSearchChange}
-              onKeyPress={handleSearchSubmit}
-              className=" w-[200px] text-black px-4 py-2 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-            />
-            <span className="absolute inset-y-0 right-0 pr-3 flex items-center">
-              {/* <SearchIcon className="text-gray-400" /> */}
-            </span>
-          </div>
+          <Search className="w-[400px]" />
 
           <div className="relative">
             {showCategoriesMenu && (

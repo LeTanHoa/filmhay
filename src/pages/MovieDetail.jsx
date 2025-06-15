@@ -1,13 +1,15 @@
 import { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import axios from "axios";
 import MovieCard from "../components/MovieCard";
 import { API_ENDPOINTS } from "../config/api";
 import VideoPlayer from "../components/VideoPlayer";
 import { Helmet } from "react-helmet-async";
+import { Spin } from "antd";
 
 const MovieDetail = () => {
   const { slug } = useParams();
+  const navigate = useNavigate();
   const [movie, setMovie] = useState(null);
   const [similarMovies, setSimilarMovies] = useState([]);
   const [selectedServer, setSelectedServer] = useState(null);
@@ -76,8 +78,20 @@ const MovieDetail = () => {
     window.scrollTo(0, 0);
   }, [slug]);
 
-  if (loading) return <p className="text-white p-5">Loading...</p>;
-  if (!movie) return <p className="text-white p-5">Movie not found</p>;
+  const handleActorClick = (actorName) => {
+    navigate(`/actor?name=${encodeURIComponent(actorName)}`);
+  };
+
+  if (loading)
+    return (
+      <Spin
+        className="mt-20 flex justify-center"
+        spinning={loading}
+        tip="Đang tải phim..."
+        size="large"
+      />
+    );
+  if (!movie) return <p className="text-white p-5">Không tìm thấy phim</p>;
 
   return (
     <>
@@ -107,44 +121,34 @@ const MovieDetail = () => {
             className="w-full h-full md:h-[300px] object-cover rounded-lg shadow-lg"
           />
           <div className="flex flex-col gap-4">
+            <div className="flex items-center gap-5">
+              <strong>Diễn viên:</strong>{" "}
+              <div className="flex flex-wrap gap-2 ">
+                {movie.actors?.map((actor, index) => (
+                  <button
+                    key={index}
+                    onClick={() => handleActorClick(actor)}
+                    className="bg-gray-700 hover:bg-blue-600 text-white px-3 py-1 rounded-full text-sm transition-colors"
+                  >
+                    {actor}
+                  </button>
+                ))}
+              </div>
+            </div>
             <p>
               <strong>Thời lượng:</strong> {movie.time}
             </p>
             <p>
               <strong>Chất lượng:</strong> {movie.quality}
             </p>
-            <p>
-              <strong>Quốc gia:</strong> {movie.country?.name}
-            </p>
-            <p>
-              <strong>Trạng thái:</strong> {movie.status}
-            </p>
-
-            <div>
-              <p className="font-semibold mb-2">Thể loại:</p>
-              <div className="flex flex-wrap gap-2">
-                {movie.categories?.map((category) => (
-                  <span
-                    key={category.id}
-                    className="bg-gray-700 text-white px-3 py-1 rounded-full text-sm"
-                  >
-                    {category.name}
-                  </span>
-                ))}
-              </div>
-            </div>
-
-            <div className="bg-gray-700 p-4 rounded-lg">
-              <p className="text-justify">{movie.content}</p>
-            </div>
-
-            {/* Danh sách tập */}
             {movie.episodes && movie.episodes.length > 0 && (
-              <div>
-                <h2 className="text-xl font-semibold mb-3">Danh sách tập:</h2>
+              <div className="flex flex-col md:flex-row items-start md:items-center gap-2">
+                <span>
+                  <strong className="">Danh sách tập:</strong>
+                </span>
                 {movie.episodes.map((episode, index) => (
-                  <div key={index} className="mb-4">
-                    <h3 className="text-lg font-medium mb-2">
+                  <div key={index} className=" flex items-center gap-2">
+                    <h3 className="text-lg font-medium">
                       {episode.server_name}
                     </h3>
                     <div className="flex flex-wrap gap-2">
@@ -166,6 +170,29 @@ const MovieDetail = () => {
                 ))}
               </div>
             )}
+            <p>
+              <strong>Quốc gia:</strong> {movie.country?.name}
+            </p>
+
+            <div>
+              <p className="font-semibold mb-2">Thể loại:</p>
+              <div className="flex flex-wrap gap-2">
+                {movie.categories?.map((category) => (
+                  <span
+                    key={category.id}
+                    className="bg-gray-700 text-white px-3 py-1 rounded-full text-sm"
+                  >
+                    {category.name}
+                  </span>
+                ))}
+              </div>
+            </div>
+
+            <div className="bg-gray-700 p-2 rounded-lg">
+              <p className="text-justify">{movie.content}</p>
+            </div>
+
+            {/* Danh sách tập */}
           </div>
         </div>
 
@@ -174,7 +201,7 @@ const MovieDetail = () => {
           <div className="mt-10">
             <h2 className="text-xl font-bold mb-4">Phim Tương Tự</h2>
             <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-              {movies.map((item) => (
+              {movies.slice(0, 12).map((item) => (
                 <MovieCard key={item.slug} movie={item} />
               ))}
             </div>

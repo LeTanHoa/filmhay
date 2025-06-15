@@ -44,7 +44,12 @@ const Home = () => {
         Phim Mới Cập Nhật
       </span>
 
-      <Spin className="mt-52" spinning={loading} tip="Đang tải phim..." size="large">
+      <Spin
+        className="mt-52"
+        spinning={loading}
+        tip="Đang tải phim..."
+        size="large"
+      >
         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
           {movies.map((movie) => (
             <div key={movie.id}>
