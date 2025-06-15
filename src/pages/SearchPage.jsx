@@ -1,12 +1,13 @@
-import { useState, useEffect } from 'react';
-import { useSearchParams } from 'react-router-dom';
-import axios from 'axios';
-import MovieCard from '../components/MovieCard';
-import { API_ENDPOINTS } from '../config/api';
+import { useState, useEffect } from "react";
+import { useSearchParams } from "react-router-dom";
+import axios from "axios";
+import MovieCard from "../components/MovieCard";
+import { API_ENDPOINTS } from "../config/api";
+import { Spin } from "antd";
 
 const SearchPage = () => {
   const [searchParams] = useSearchParams();
-  const searchQuery = searchParams.get('q') || '';
+  const searchQuery = searchParams.get("q") || "";
   const [movies, setMovies] = useState([]);
   const [loading, setLoading] = useState(true);
 
@@ -17,12 +18,12 @@ const SearchPage = () => {
         const response = await axios.get(API_ENDPOINTS.LATEST_MOVIES());
         const allMovies = response.data.movies;
 
-        const filteredMovies = allMovies.filter(movie =>
+        const filteredMovies = allMovies.filter((movie) =>
           movie.name.toLowerCase().includes(searchQuery.toLowerCase())
         );
         setMovies(filteredMovies);
       } catch (error) {
-        console.error('Error fetching and filtering movies:', error);
+        console.error("Error fetching and filtering movies:", error);
       }
       setLoading(false);
     };
@@ -37,13 +38,18 @@ const SearchPage = () => {
 
   return (
     <div className="container mx-auto py-8 text-white">
-      <h1 className="text-3xl font-bold mb-6">
+      <span className="text-xl block font-bold mb-6">
         Kết quả tìm kiếm cho: "{searchQuery}"
-      </h1>
+      </span>
       {loading ? (
-        <p>Đang tải...</p>
+        <Spin
+          className="mt-20 flex justify-center"
+          spinning={loading}
+          tip="Đang tải phim..."
+          size="large"
+        />
       ) : movies.length > 0 ? (
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
           {movies.map((movie) => (
             <div key={movie._id}>
               <MovieCard movie={movie} />
@@ -57,4 +63,4 @@ const SearchPage = () => {
   );
 };
 
-export default SearchPage; 
+export default SearchPage;
