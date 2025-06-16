@@ -38,7 +38,8 @@ const SearchPage = () => {
 
   return (
     <div className="flex min-h-28 flex-col gap-3 text-white">
-      <span className="text-xl block font-bold mb-6">
+      <hr />
+      <span className="text-xl block font-bold ">
         Kết quả tìm kiếm cho: "{searchQuery}"
       </span>
       {loading ? (

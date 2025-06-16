@@ -11,6 +11,7 @@ const CategoryPage = () => {
   const [page, setPage] = useState(1);
   const [pageSize, setPageSize] = useState(20);
   const [totalPages, setTotalPages] = useState(1);
+
   const [loading, setLoading] = useState(false);
 
   const dataCategories = [
@@ -24,12 +25,19 @@ const CategoryPage = () => {
     { name: "Loạn Luân", slug: "loan-luan" },
     { name: "PornHub", slug: "pornhub" },
     { name: "Hiếp Dâm", slug: "hiep-dam" },
+    { name: "Việt Nam Clip", slug: "viet-nam-clip" },
+    { name: "Mỹ - Châu Âu", slug: "chau-au" },
+    { name: "Trung Quốc", slug: "trung-quoc" },
+    { name: "Hàn Quốc", slug: "han-quoc-18-" },
+    { name: "Không Che", slug: "khong-che" },
+    { name: "JavHD", slug: "jav-hd" },
+    { name: "Hentai", slug: "hentai" },
   ];
 
   const nameCategory = dataCategories.find(
     (category) => category.slug === categorySlug
   );
-
+  console.log(nameCategory);
   useEffect(() => {
     const fetchMoviesByCategory = async () => {
       setLoading(true);
@@ -63,7 +71,8 @@ const CategoryPage = () => {
 
   return (
     <div className="flex min-h-28 flex-col gap-3 text-white">
-      <span className="text-xl block font-bold text-white mb-6">
+      <hr />
+      <span className="text-xl block font-bold text-white ">
         Thể loại: {nameCategory ? nameCategory.name : ""}
       </span>
 

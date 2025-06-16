@@ -6,7 +6,7 @@ import { API_ENDPOINTS } from "../config/api";
 import VideoPlayer from "../components/VideoPlayer";
 import { Helmet } from "react-helmet-async";
 import { Spin } from "antd";
-
+import { CaretLeftOutlined } from "@ant-design/icons";
 const MovieDetail = () => {
   const { slug } = useParams();
   const navigate = useNavigate();
@@ -102,8 +102,17 @@ const MovieDetail = () => {
         <meta property="og:description" content={movie.content.slice(0, 150)} />
         <meta property="og:type" content="video.movie" />
       </Helmet>
+      <hr />
       <div className=" text-white">
-        <h1 className="text-2xl font-bold mb-6">{movie.name}</h1>
+        <div className="flex items-center">
+          <h1 className="text-2xl font-bold ">
+            <CaretLeftOutlined
+              onClick={() => navigate("/")}
+              className="text-2xl"
+            />{" "}
+            {movie.name}
+          </h1>
+        </div>
 
         {/* Video Player */}
         {selectedServer && (
@@ -119,7 +128,7 @@ const MovieDetail = () => {
             alt={movie.name}
             className="w-full h-full md:h-[300px] object-cover rounded-lg shadow-lg"
           />
-          <div className="flex flex-col gap-4">
+          <div className="flex flex-col gap-2">
             <div className="flex items-center gap-5">
               <strong>Diễn viên:</strong>{" "}
               <div className="flex flex-wrap gap-2 ">
@@ -134,52 +143,24 @@ const MovieDetail = () => {
                 ))}
               </div>
             </div>
-            <p>
+            <span>
               <strong>Thời lượng:</strong> {movie.time}
-            </p>
-            <p>
+            </span>
+            <span>
               <strong>Chất lượng:</strong> {movie.quality}
-            </p>
-            {movie.episodes && movie.episodes.length > 0 && (
-              <div className="flex flex-col md:flex-row items-start md:items-center gap-2">
-                <span>
-                  <strong className="">Danh sách tập:</strong>
-                </span>
-                {movie.episodes.map((episode, index) => (
-                  <div key={index} className=" flex items-center gap-2">
-                    <h3 className="text-lg font-medium">
-                      {episode.server_name}
-                    </h3>
-                    <div className="flex flex-wrap gap-2">
-                      {episode.server_data.map((server, serverIndex) => (
-                        <button
-                          key={serverIndex}
-                          onClick={() => setSelectedServer(server)}
-                          className={`px-4 py-2 rounded-md ${
-                            selectedServer?.name === server.name
-                              ? "bg-blue-600 text-white"
-                              : "bg-gray-600 text-gray-200"
-                          } hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500`}
-                        >
-                          {server.name}
-                        </button>
-                      ))}
-                    </div>
-                  </div>
-                ))}
-              </div>
-            )}
-            <p>
+            </span>
+
+            <span>
               <strong>Quốc gia:</strong> {movie.country?.name}
-            </p>
+            </span>
 
             <div>
-              <p className="font-semibold mb-2">Thể loại:</p>
+              <span className="font-semibold block mb-2">Thể loại:</span>
               <div className="flex flex-wrap gap-2">
                 {movie.categories?.map((category) => (
                   <span
                     key={category.id}
-                    className="bg-gray-700 text-white px-3 py-1 rounded-full text-sm"
+                    className="bg-gray-700 text-white px-3 py-1 cursor-pointer rounded-full text-sm"
                     onClick={() => navigate(`/category/${category.slug}`)}
                   >
                     {category.name}
@@ -189,7 +170,7 @@ const MovieDetail = () => {
             </div>
 
             <div className="bg-gray-700 p-2 rounded-lg">
-              <p className="text-justify">{movie.content}</p>
+              <span className="text-justify  block">{movie.content}</span>
             </div>
 
             {/* Danh sách tập */}

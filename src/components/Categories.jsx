@@ -25,13 +25,8 @@ const Categories = () => {
 
   return (
     <div className="">
-      <div className="flex gap-3 flex-col">
-        <span
-          className="text-white"
-          style={{ fontSize: "24px", fontWeight: "bold" }}
-        >
-          Thể loại
-        </span>
+      <div className="flex gap-3 mb-4 flex-col">
+        <span className="text-white text-xl font-bold">Danh Mục Phim</span>
         <div className="flex flex-wrap gap-3">
           <button
             onClick={() => {

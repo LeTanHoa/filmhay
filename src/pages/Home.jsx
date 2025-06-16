@@ -38,8 +38,7 @@ const Home = () => {
   return (
     <div className="flex min-h-28 flex-col gap-3 text-white">
       <span
-        className="text-white"
-        style={{ fontSize: "24px", fontWeight: "bold" }}
+        className="text-white text-xl font-bold"
       >
         Phim Mới Cập Nhật
       </span>

@@ -13,7 +13,7 @@ const Footer = () => {
         gu. Hãy cùng Bôn tận hưởng những khoảnh khắc thư giãn đúng nghĩa!
       </div>
       <div className="flex justify-between items-center">
-        <Link to="/" className="text-white text-5xl md:text-5xl font-bold">
+        <Link to="/" className="text-white text-5xl md:text-7xl font-bold">
           CWB
         </Link>
         <span className="text-white">Chill Một Chút - Vui Cả Ngày</span>

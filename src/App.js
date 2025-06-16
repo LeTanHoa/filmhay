@@ -10,6 +10,7 @@ import Categories from "./components/Categories";
 import Footer from "./components/Footer";
 import MusicButton from "./components/MusicButton";
 import { CaretUpOutlined } from "@ant-design/icons";
+import CurrentDateTime from "./components/CurrentDateTime";
 function App() {
   const scrollToTop = () => {
     window.scrollTo({
@@ -21,7 +22,9 @@ function App() {
     <div className="min-h-screen bg-[#131313] flex flex-col">
       <Router>
         <Navbar />
-        <div className="max-w-6xl px-5 md:px-0 mx-auto mt-44 md:mt-32 mb-24 flex flex-col gap-3 flex-grow ">
+        <div className="max-w-6xl px-5 md:px-0 mx-auto mt-40 md:mt-28 mb-16 flex flex-col gap-3 flex-grow ">
+          <CurrentDateTime />
+
           <Categories />
           <Routes>
             <Route path="/" element={<Home />} />
