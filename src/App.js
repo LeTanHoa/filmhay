@@ -8,8 +8,15 @@ import MoviesByActor from "./pages/MoviesByActor";
 import Navbar from "./components/Navbar";
 import Categories from "./components/Categories";
 import Footer from "./components/Footer";
-
+import MusicButton from "./components/MusicButton";
+import { CaretUpOutlined } from "@ant-design/icons";
 function App() {
+  const scrollToTop = () => {
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
+  };
   return (
     <div className="min-h-screen bg-[#131313] flex flex-col">
       <Router>
@@ -24,6 +31,15 @@ function App() {
             <Route path="/actor" element={<MoviesByActor />} />
           </Routes>
           <Footer />
+        </div>
+        <div>
+          <div
+            onClick={scrollToTop}
+            className="fixed cursor-pointer bottom-44 right-4 z-50 bg-blue-600 text-white rounded-full w-12 h-12 flex items-center justify-center shadow-lg hover:bg-blue-700 transition duration-300"
+          >
+            <CaretUpOutlined />
+          </div>
+          <MusicButton />
         </div>
       </Router>
     </div>
