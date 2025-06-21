@@ -1,4 +1,4 @@
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from "react-router-dom";
 
 const MovieCard = ({ movie }) => {
   const navigate = useNavigate();
@@ -11,12 +11,12 @@ const MovieCard = ({ movie }) => {
 
   return (
     <div
-      className="bg-black rounded-lg shadow-lg overflow-hidden cursor-pointer h-full flex flex-col"
+      className="bg-gray-700 border border-gray-600  rounded-lg shadow-lg overflow-hidden cursor-pointer h-full flex flex-col"
       onClick={handleClick}
     >
       <img
         src={movie.thumb_url}
-   //      src='https://example.com/default-movie-image.jpg' // Placeholder image
+        //      src='https://example.com/default-movie-image.jpg' // Placeholder image
         alt={movie.name}
         className="w-full h-[180px] object-cover"
       />
@@ -24,7 +24,7 @@ const MovieCard = ({ movie }) => {
         <h3 className="text-[14px] font-semibold text-white  line-clamp-2">
           {movie.name}
         </h3>
-      
+
         {/* Optionally add more movie info here */}
       </div>
     </div>
