@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import axios from "axios";
 import MovieCard from "../components/MovieCard";
@@ -81,6 +81,17 @@ const MovieDetail = () => {
     navigate(`/actor?name=${encodeURIComponent(actorName)}`);
   };
 
+  const { code, title } = useMemo(() => {
+    if (typeof movie?.name === "string") {
+      const [code, ...titleParts] = movie.name.split("_");
+      return {
+        code,
+        title: titleParts.join("_"),
+      };
+    }
+    return { code: "", title: "" };
+  }, [movie]);
+
   if (loading)
     return (
       <Spin
@@ -110,7 +121,7 @@ const MovieDetail = () => {
               onClick={() => navigate("/")}
               className="text-2xl"
             />{" "}
-            {movie.name}
+            {title}
           </h1>
         </div>
 
@@ -143,6 +154,9 @@ const MovieDetail = () => {
                 ))}
               </div>
             </div>
+            <span>
+              <strong>Code:</strong> {code}
+            </span>
             <span>
               <strong>Thời lượng:</strong> {movie.time}
             </span>

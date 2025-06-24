@@ -37,13 +37,14 @@ const Home = () => {
 
   return (
     <div className="flex min-h-28 flex-col gap-3 text-white">
-      <span
-        className="text-white text-xl font-bold"
-      >
-        Phim Mới Cập Nhật
-      </span>
+      <span className="text-white text-xl font-bold">Phim Mới Cập Nhật</span>
 
-      <Spin spinning={loading} className="py-10 " tip="Đang tải phim..." size="large">
+      <Spin
+        spinning={loading}
+        className="py-10 "
+        tip="Đang tải phim..."
+        size="large"
+      >
         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
           {movies.map((movie) => (
             <div key={movie.id}>
