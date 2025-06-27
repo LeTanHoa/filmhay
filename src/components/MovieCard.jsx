@@ -2,7 +2,6 @@ import { useNavigate } from "react-router-dom";
 
 const MovieCard = ({ movie }) => {
   const navigate = useNavigate();
-  console.log(movie);
   const handleClick = () => {
     if (movie.slug) {
       navigate(`/movie/${movie.slug}`);

@@ -37,7 +37,6 @@ const CategoryPage = () => {
   const nameCategory = dataCategories.find(
     (category) => category.slug === categorySlug
   );
-  console.log(nameCategory);
   useEffect(() => {
     const fetchMoviesByCategory = async () => {
       setLoading(true);

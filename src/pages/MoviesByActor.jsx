@@ -12,7 +12,6 @@ const MoviesByActor = () => {
   const [loading, setLoading] = useState(true);
   const [page, setPage] = useState(1);
   const actorName = searchParams.get("name") || "";
-  console.log(searchParams);
   const fetchMoviesByActor = async (pageNum) => {
     try {
       const response = await axios.get(API_ENDPOINTS.LATEST_MOVIES(pageNum));
